@@ -1,16 +1,15 @@
 package com.personal.jpastudy;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import com.personal.jpastudy.member.MemberTest;
 
 public class JpaStudyApplication {
 
   public static void main(String[] args) {
-    EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("study");
-    EntityManager entityManager = entityManagerFactory.createEntityManager();
+    MemberTest memberTest = new MemberTest();
 
-    entityManager.close();
-    entityManagerFactory.close();
+//    memberTest.persist();
+//    memberTest.find();
+//    memberTest.remove();
+    memberTest.update();
   }
 }
