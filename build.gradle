@@ -12,7 +12,7 @@ repositories {
 
 dependencies {
 	implementation('org.hibernate:hibernate-entitymanager:5.4.27.Final')
-	implementation('com.h2database:h2:1.4.200')
+	runtimeOnly 'mysql:mysql-connector-java'
 }
 
 test {
