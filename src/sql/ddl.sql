@@ -1,7 +1,7 @@
-create database jpa-study character set utf8;
+create database study character set utf8;
 
-create user 'jpa-study'@'localhost' identified by 'jpa-password';
-create user 'jpa-study'@'%' identified by 'jpa-password';
+create user 'student'@'localhost' identified by 'password';
+create user 'student'@'%' identified by 'password';
 
-grant all privileges on jpa-study.* to 'jpa-study'@'localhost';
-grant all privileges on jpa-study.* to 'jpa-study'@'%';
+grant all privileges on study.* to 'student'@'localhost';
+grant all privileges on study.* to 'student'@'%';

@@ -1,13 +1,16 @@
 package com.personal.jpastudy;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
-@SpringBootApplication
 public class JpaStudyApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(JpaStudyApplication.class, args);
-	}
+  public static void main(String[] args) {
+    EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("study");
+    EntityManager entityManager = entityManagerFactory.createEntityManager();
 
+    entityManager.close();
+    entityManagerFactory.close();
+  }
 }

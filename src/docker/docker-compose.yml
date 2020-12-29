@@ -6,7 +6,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: "password"
     volumes:
-      - "./src/sql/ddl.sql:/docker-entrypoint-initdb.d/ddl.sql"
+      - "../sql/ddl.sql:/docker-entrypoint-initdb.d/ddl.sql"
       - "./docker-compose-mysql.cnf:/etc/mysql/conf.d/mysql.cnf"
     ports:
       - 3307:3306
