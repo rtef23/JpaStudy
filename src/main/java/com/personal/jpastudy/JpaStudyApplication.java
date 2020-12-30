@@ -10,6 +10,9 @@ public class JpaStudyApplication {
 //    memberTest.persist();
 //    memberTest.find();
 //    memberTest.remove();
-    memberTest.update();
+//    memberTest.update();
+//    memberTest.multipleFind();
+//    memberTest.persistLazyWrite();
+    memberTest.combinedLazyWrite();
   }
 }
