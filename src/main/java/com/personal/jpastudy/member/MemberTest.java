@@ -1,9 +1,11 @@
 package com.personal.jpastudy.member;
 
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 
 public class MemberTest {
   public void persist() {
@@ -102,7 +104,7 @@ public class MemberTest {
     try {
       Member member1 = entityManager.find(Member.class, 1L);
       Member member2 = entityManager.find(Member.class, 1L);
-      //member1 == member2
+      // member1 == member2
 
       entityTransaction.commit();
     } catch (Exception exception) {
@@ -123,7 +125,6 @@ public class MemberTest {
     try {
       Member testMember1 = new Member(2L, "test-name2");
       Member testMember2 = new Member(3L, "test-name3");
-
 
       entityManager.persist(testMember1);
       entityManager.persist(testMember2);
@@ -150,6 +151,35 @@ public class MemberTest {
       entityManager.persist(testMember1);
       entityManager.remove(testMember1);
       entityManager.persist(testMember1);
+
+      entityTransaction.commit();
+    } catch (Exception exception) {
+      entityTransaction.rollback();
+    } finally {
+      entityManager.close();
+      entityManagerFactory.close();
+    }
+  }
+
+  public void jpqlFlushTest() {
+    EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("study");
+    EntityManager entityManager = entityManagerFactory.createEntityManager();
+    EntityTransaction entityTransaction = entityManager.getTransaction();
+
+    entityTransaction.begin();
+
+    try {
+      Member testMember1 = new Member(5L, "test-name5");
+      Member testMember2 = new Member(6L, "test-name6");
+      Member testMember3 = new Member(7L, "test-name7");
+
+      entityManager.persist(testMember1);
+      entityManager.persist(testMember2);
+      entityManager.persist(testMember3);
+
+      Query query = entityManager.createQuery("select m from Member m", Member.class);
+      List<Member> members = query.getResultList();
+      //createQuery api를 사용한 시점이 아닌 getResultList를 사용한 시점에서 쿼리가 전송된다.
 
       entityTransaction.commit();
     } catch (Exception exception) {

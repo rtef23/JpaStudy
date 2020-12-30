@@ -13,6 +13,7 @@ public class JpaStudyApplication {
 //    memberTest.update();
 //    memberTest.multipleFind();
 //    memberTest.persistLazyWrite();
-    memberTest.combinedLazyWrite();
+//    memberTest.combinedLazyWrite();
+    memberTest.jpqlFlushTest();
   }
 }
