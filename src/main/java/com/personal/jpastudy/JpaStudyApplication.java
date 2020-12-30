@@ -14,6 +14,8 @@ public class JpaStudyApplication {
 //    memberTest.multipleFind();
 //    memberTest.persistLazyWrite();
 //    memberTest.combinedLazyWrite();
-    memberTest.jpqlFlushTest();
+//    memberTest.jpqlFlushTest();
+//    memberTest.detachTest();
+    memberTest.detachTest1();
   }
 }

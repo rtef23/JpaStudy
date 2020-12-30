@@ -179,7 +179,56 @@ public class MemberTest {
 
       Query query = entityManager.createQuery("select m from Member m", Member.class);
       List<Member> members = query.getResultList();
-      //createQuery api를 사용한 시점이 아닌 getResultList를 사용한 시점에서 쿼리가 전송된다.
+      // createQuery api를 사용한 시점이 아닌 getResultList를 사용한 시점에서 쿼리가 전송된다.
+
+      entityTransaction.commit();
+    } catch (Exception exception) {
+      entityTransaction.rollback();
+    } finally {
+      entityManager.close();
+      entityManagerFactory.close();
+    }
+  }
+
+  public void detachTest() {
+    EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("study");
+    EntityManager entityManager = entityManagerFactory.createEntityManager();
+    EntityTransaction entityTransaction = entityManager.getTransaction();
+
+    entityTransaction.begin();
+
+    try {
+      Member testMember1 = entityManager.find(Member.class, 1L);
+
+      testMember1.setName("SSSSSS");
+
+      entityManager.detach(testMember1);
+      // testMember1 엔티티를 준영속 상태로 만들어 update 쿼리가 전송되지 않게 된다.
+
+      entityTransaction.commit();
+    } catch (Exception exception) {
+      entityTransaction.rollback();
+    } finally {
+      entityManager.close();
+      entityManagerFactory.close();
+    }
+  }
+
+  public void detachTest1() {
+    EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("study");
+    EntityManager entityManager = entityManagerFactory.createEntityManager();
+    EntityTransaction entityTransaction = entityManager.getTransaction();
+
+    entityTransaction.begin();
+
+    try {
+      Member testMember1 = entityManager.find(Member.class, 4L);
+      testMember1.setName("SSSSSS");
+
+      entityManager.detach(testMember1);
+
+      Member testMember2 = entityManager.find(Member.class, 4L);
+      testMember2.setName("SSSS");
 
       entityTransaction.commit();
     } catch (Exception exception) {
