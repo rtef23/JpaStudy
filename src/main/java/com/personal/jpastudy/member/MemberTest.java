@@ -19,7 +19,7 @@ public class MemberTest {
       Member testMember = new Member();
 
       testMember.setId(1L);
-      testMember.setName("test-name3");
+      testMember.setUserName("test-name3");
 
       entityManager.persist(testMember);
 
@@ -83,7 +83,7 @@ public class MemberTest {
     try {
       Member member = entityManager.find(Member.class, 1L);
 
-      member.setName("test-2");
+      member.setUserName("test-2");
 
       entityTransaction.commit();
     } catch (Exception exception) {
@@ -123,8 +123,14 @@ public class MemberTest {
     entityTransaction.begin();
 
     try {
-      Member testMember1 = new Member(2L, "test-name2");
-      Member testMember2 = new Member(3L, "test-name3");
+      Member testMember1 = new Member();
+      Member testMember2 = new Member();
+
+      testMember1.setId(2L);
+      testMember1.setUserName("test-name-2");
+
+      testMember2.setId(3L);
+      testMember2.setUserName("test-name-3");
 
       entityManager.persist(testMember1);
       entityManager.persist(testMember2);
@@ -146,7 +152,10 @@ public class MemberTest {
     entityTransaction.begin();
 
     try {
-      Member testMember1 = new Member(4L, "test-name2");
+      Member testMember1 = new Member();
+
+      testMember1.setId(4L);
+      testMember1.setUserName("test-name-1");
 
       entityManager.persist(testMember1);
       entityManager.remove(testMember1);
@@ -169,9 +178,18 @@ public class MemberTest {
     entityTransaction.begin();
 
     try {
-      Member testMember1 = new Member(5L, "test-name5");
-      Member testMember2 = new Member(6L, "test-name6");
-      Member testMember3 = new Member(7L, "test-name7");
+      Member testMember1 = new Member();
+      Member testMember2 = new Member();
+      Member testMember3 = new Member();
+
+      testMember1.setId(5L);
+      testMember1.setUserName("test-name-5");
+
+      testMember1.setId(6L);
+      testMember1.setUserName("test-name-6");
+
+      testMember1.setId(7L);
+      testMember1.setUserName("test-name-7");
 
       entityManager.persist(testMember1);
       entityManager.persist(testMember2);
@@ -200,7 +218,7 @@ public class MemberTest {
     try {
       Member testMember1 = entityManager.find(Member.class, 1L);
 
-      testMember1.setName("SSSSSS");
+      testMember1.setUserName("SSSSSS");
 
       entityManager.detach(testMember1);
       // testMember1 엔티티를 준영속 상태로 만들어 update 쿼리가 전송되지 않게 된다.
@@ -223,12 +241,12 @@ public class MemberTest {
 
     try {
       Member testMember1 = entityManager.find(Member.class, 4L);
-      testMember1.setName("SSSSSS");
+      testMember1.setUserName("SSSSSS");
 
       entityManager.detach(testMember1);
 
       Member testMember2 = entityManager.find(Member.class, 4L);
-      testMember2.setName("SSSS");
+      testMember2.setUserName("SSSS");
 
       entityTransaction.commit();
     } catch (Exception exception) {

@@ -11,12 +11,20 @@
       <property name="javax.persistence.jdbc.password" value="password"/>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3307/study?characterEncoding=utf-8"/>
 
-      <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>
+      <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL55Dialect"/>
+<!--      <property name="hibernate.dialect.storage_engine" value="innodb"/>-->
 
       <!-- optional -->
       <property name="hibernate.show_sql" value="true"/>
       <property name="hibernate.format_sql" value="true"/>
       <property name="hibernate.use_sql_comments" value="true"/>
+
+      <property name="hibernate.hbm2ddl.auto" value="create"/>
+<!--      <property name="hibernate.hbm2ddl.auto" value="create-drop"/>-->
+<!--      <property name="hibernate.hbm2ddl.auto" value="update"/>-->
+<!--      <property name="hibernate.hbm2ddl.auto" value="validate"/>-->
+      <!-- 실제로는 없는 값(none)이지만 관례상 적용하지 않음을 명시하기 위해서 none이라 값을 준다. -->
+<!--      <property name="hibernate.hbm2ddl.auto" value="none"/>-->
     </properties>
   </persistence-unit>
 </persistence>
