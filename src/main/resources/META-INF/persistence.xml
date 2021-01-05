@@ -3,6 +3,7 @@
   version="2.1">
   <persistence-unit name="study">
     <class>com.personal.jpastudy.member.Member</class>
+    <class>com.personal.jpastudy.test.Test</class>
 
     <properties>
       <!-- required -->
