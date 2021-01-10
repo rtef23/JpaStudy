@@ -74,7 +74,6 @@ public class JpaStudyApplication {
 
       User user = new User();
       user.setUsername("test-user-1");
-      user.setLocker(locker);
 
       entityManager.persist(user);
 
