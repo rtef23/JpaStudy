@@ -4,10 +4,17 @@
   <persistence-unit name="study">
 <!--    <class>com.personal.jpastudy.member.Member</class>-->
 <!--    <class>com.personal.jpastudy.test.Test</class>-->
-    <class>com.personal.jpastudy.domain.User</class>
-    <class>com.personal.jpastudy.domain.Order</class>
-    <class>com.personal.jpastudy.domain.OrderItem</class>
-    <class>com.personal.jpastudy.domain.Item</class>
+
+<!--    <class>com.personal.jpastudy.domain1.User</class>-->
+<!--    <class>com.personal.jpastudy.domain1.Order</class>-->
+<!--    <class>com.personal.jpastudy.domain1.OrderItem</class>-->
+<!--    <class>com.personal.jpastudy.domain1.Item</class>-->
+
+<!--    <class>com.personal.jpastudy.domain2.Team</class>-->
+    <class>com.personal.jpastudy.domain2.User</class>
+    <class>com.personal.jpastudy.domain2.Product</class>
+    <class>com.personal.jpastudy.domain2.UserProduct</class>
+<!--    <class>com.personal.jpastudy.domain2.Locker</class>-->
 
     <properties>
       <!-- required -->

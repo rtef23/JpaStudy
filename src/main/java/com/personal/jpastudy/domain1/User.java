@@ -1,4 +1,4 @@
-package com.personal.jpastudy.domain;
+package com.personal.jpastudy.domain1;
 
 import java.util.ArrayList;
 import java.util.List;

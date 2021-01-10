@@ -1,4 +1,4 @@
-package com.personal.jpastudy.domain;
+package com.personal.jpastudy.domain1;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
