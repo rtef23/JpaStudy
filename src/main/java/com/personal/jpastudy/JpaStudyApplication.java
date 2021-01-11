@@ -1,10 +1,6 @@
 package com.personal.jpastudy;
 
-import com.personal.jpastudy.domain1.Order;
-import com.personal.jpastudy.domain1.OrderItem;
-import com.personal.jpastudy.domain2.Locker;
-import com.personal.jpastudy.domain2.Team;
-import com.personal.jpastudy.domain2.User;
+import com.personal.jpastudy.domain3.join.Album;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -32,27 +28,60 @@ public class JpaStudyApplication {
   //    testRepository.insertTest1();
   //  }
 
-//  public static void main(String[] args) {
-//    EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("study");
-//    EntityManager entityManager = entityManagerFactory.createEntityManager();
-//    EntityTransaction entityTransaction = entityManager.getTransaction();
-//
-//    entityTransaction.begin();
-//
-//    try {
-//      Order order = new Order();
-//
-//      order.addOrderItem(new OrderItem());
-//
-//      entityTransaction.commit();
-//    } catch (Exception exception) {
-//      entityTransaction.rollback();
-//    } finally {
-//      entityManager.close();
-//    }
-//
-//    entityManagerFactory.close();
-//  }
+  //  public static void main(String[] args) {
+  //    EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("study");
+  //    EntityManager entityManager = entityManagerFactory.createEntityManager();
+  //    EntityTransaction entityTransaction = entityManager.getTransaction();
+  //
+  //    entityTransaction.begin();
+  //
+  //    try {
+  //      Order order = new Order();
+  //
+  //      order.addOrderItem(new OrderItem());
+  //
+  //      entityTransaction.commit();
+  //    } catch (Exception exception) {
+  //      entityTransaction.rollback();
+  //    } finally {
+  //      entityManager.close();
+  //    }
+  //
+  //    entityManagerFactory.close();
+  //  }
+
+  //  public static void main(String[] args) {
+  //    EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("study");
+  //    EntityManager entityManager = entityManagerFactory.createEntityManager();
+  //    EntityTransaction entityTransaction = entityManager.getTransaction();
+  //
+  //    entityTransaction.begin();
+  //
+  //    try {
+  ////      Team team = new Team("test-team-1");
+  ////
+  ////      entityManager.persist(team);
+  //
+  //
+  //
+  //      Locker locker = new Locker("test-locker-1");
+  //
+  //      entityManager.persist(locker);
+  //
+  //      User user = new User();
+  //      user.setUsername("test-user-1");
+  //
+  //      entityManager.persist(user);
+  //
+  //      entityTransaction.commit();
+  //    } catch (Exception exception) {
+  //      entityTransaction.rollback();
+  //    } finally {
+  //      entityManager.close();
+  //    }
+  //
+  //    entityManagerFactory.close();
+  //  }
 
   public static void main(String[] args) {
     EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("study");
@@ -62,20 +91,16 @@ public class JpaStudyApplication {
     entityTransaction.begin();
 
     try {
-//      Team team = new Team("test-team-1");
-//
-//      entityManager.persist(team);
+      Album album = new Album();
 
+      // item 항목
+      album.setName("test-name-1");
+      album.setPrice(1111);
 
+      // album 항목
+      album.setArtist("artist-1");
 
-      Locker locker = new Locker("test-locker-1");
-
-      entityManager.persist(locker);
-
-      User user = new User();
-      user.setUsername("test-user-1");
-
-      entityManager.persist(user);
+      entityManager.persist(album);
 
       entityTransaction.commit();
     } catch (Exception exception) {

@@ -11,10 +11,23 @@
 <!--    <class>com.personal.jpastudy.domain1.Item</class>-->
 
 <!--    <class>com.personal.jpastudy.domain2.Team</class>-->
-    <class>com.personal.jpastudy.domain2.User</class>
-    <class>com.personal.jpastudy.domain2.Product</class>
-    <class>com.personal.jpastudy.domain2.UserProduct</class>
+<!--    <class>com.personal.jpastudy.domain2.User</class>-->
+<!--    <class>com.personal.jpastudy.domain2.Product</class>-->
+<!--    <class>com.personal.jpastudy.domain2.UserProduct</class>-->
 <!--    <class>com.personal.jpastudy.domain2.Locker</class>-->
+
+<!--    <class>com.personal.jpastudy.domain3.join.Item</class>-->
+<!--    <class>com.personal.jpastudy.domain3.join.Album</class>-->
+<!--    <class>com.personal.jpastudy.domain3.join.Movie</class>-->
+<!--    <class>com.personal.jpastudy.domain3.join.Book</class>-->
+<!--    <class>com.personal.jpastudy.domain3.single.Item</class>-->
+<!--    <class>com.personal.jpastudy.domain3.single.Album</class>-->
+<!--    <class>com.personal.jpastudy.domain3.single.Movie</class>-->
+<!--    <class>com.personal.jpastudy.domain3.single.Book</class>-->
+    <class>com.personal.jpastudy.domain3.each.Item</class>
+    <class>com.personal.jpastudy.domain3.each.Album</class>
+    <class>com.personal.jpastudy.domain3.each.Movie</class>
+    <class>com.personal.jpastudy.domain3.each.Book</class>
 
     <properties>
       <!-- required -->
