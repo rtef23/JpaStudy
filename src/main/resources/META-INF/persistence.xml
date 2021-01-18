@@ -29,8 +29,11 @@
 <!--    <class>com.personal.jpastudy.domain3.each.Movie</class>-->
 <!--    <class>com.personal.jpastudy.domain3.each.Book</class>-->
 
-    <class>com.personal.jpastudy.domain5.Member</class>
-    <class>com.personal.jpastudy.domain5.Team</class>
+<!--    <class>com.personal.jpastudy.domain5.Member</class>-->
+<!--    <class>com.personal.jpastudy.domain5.Team</class>-->
+
+    <class>com.personal.jpastudy.domain6.Member</class>
+    <class>com.personal.jpastudy.domain6.Team</class>
 
     <properties>
       <!-- required -->

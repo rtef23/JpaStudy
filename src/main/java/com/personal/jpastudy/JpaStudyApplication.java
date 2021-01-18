@@ -1,12 +1,12 @@
 package com.personal.jpastudy;
 
-import com.personal.jpastudy.domain5.Member;
-import com.personal.jpastudy.domain5.Team;
+import com.personal.jpastudy.domain6.Member;
+import com.personal.jpastudy.domain6.Team;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
-import org.hibernate.Hibernate;
 
 public class JpaStudyApplication {
 
@@ -114,56 +114,111 @@ public class JpaStudyApplication {
   //    entityManagerFactory.close();
   //  }
 
-//  public static void main(String[] args) {
-//    EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("study");
-//    EntityManager entityManager = entityManagerFactory.createEntityManager();
-//    EntityTransaction entityTransaction = entityManager.getTransaction();
-//
-//    entityTransaction.begin();
-//
-//    try {
-//      Team team = new Team();
-//
-//      team.setName("team-1");
-//
-//      entityManager.persist(team);
-//
-//      Member member1 = new Member();
-//
-//      member1.setName("member-1");
-//      member1.setTeam(team);
-//
-//      entityManager.persist(member1);
-//
-//      Member member2 = new Member();
-//
-//      member2.setName("member-2");
-//      member2.setTeam(team);
-//
-//      entityManager.persist(member2);
-//
-//      entityManager.flush();
-//      entityManager.clear();
-//
-//      //      Member findMember1 = entityManager.find(Member.class, member1.getId());
-//      Member findMember1 = entityManager.getReference(Member.class, member1.getId());
-//
-//      System.out.println("#### START ####");
-//      System.out.println(findMember1.getClass());
-//
-//      System.out.println(findMember1.getId());
-//      System.out.println(findMember1.getName());
-//      System.out.println("#### END ####");
-//
-//      entityTransaction.commit();
-//    } catch (Exception exception) {
-//      entityTransaction.rollback();
-//    } finally {
-//      entityManager.close();
-//    }
-//
-//    entityManagerFactory.close();
-//  }
+  //  public static void main(String[] args) {
+  //    EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("study");
+  //    EntityManager entityManager = entityManagerFactory.createEntityManager();
+  //    EntityTransaction entityTransaction = entityManager.getTransaction();
+  //
+  //    entityTransaction.begin();
+  //
+  //    try {
+  //      Team team = new Team();
+  //
+  //      team.setName("team-1");
+  //
+  //      entityManager.persist(team);
+  //
+  //      Member member1 = new Member();
+  //
+  //      member1.setName("member-1");
+  //      member1.setTeam(team);
+  //
+  //      entityManager.persist(member1);
+  //
+  //      Member member2 = new Member();
+  //
+  //      member2.setName("member-2");
+  //      member2.setTeam(team);
+  //
+  //      entityManager.persist(member2);
+  //
+  //      entityManager.flush();
+  //      entityManager.clear();
+  //
+  //      //      Member findMember1 = entityManager.find(Member.class, member1.getId());
+  //      Member findMember1 = entityManager.getReference(Member.class, member1.getId());
+  //
+  //      System.out.println("#### START ####");
+  //      System.out.println(findMember1.getClass());
+  //
+  //      System.out.println(findMember1.getId());
+  //      System.out.println(findMember1.getName());
+  //      System.out.println("#### END ####");
+  //
+  //      entityTransaction.commit();
+  //    } catch (Exception exception) {
+  //      entityTransaction.rollback();
+  //    } finally {
+  //      entityManager.close();
+  //    }
+  //
+  //    entityManagerFactory.close();
+  //  }
+
+  //  public static void main(String[] args) {
+  //    EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("study");
+  //    EntityManager entityManager = entityManagerFactory.createEntityManager();
+  //    EntityTransaction entityTransaction = entityManager.getTransaction();
+  //
+  //    entityTransaction.begin();
+  //
+  //    try {
+  //      Team team = new Team();
+  //
+  //      team.setName("team-1");
+  //
+  //      entityManager.persist(team);
+  //
+  //      Member member1 = new Member();
+  //
+  //      member1.setName("member-1");
+  //      member1.setTeam(team);
+  //
+  //      entityManager.persist(member1);
+  //
+  //      Member member2 = new Member();
+  //
+  //      member2.setName("member-2");
+  //      member2.setTeam(team);
+  //
+  //      entityManager.persist(member2);
+  //
+  //      entityManager.flush();
+  //      entityManager.clear();
+  //
+  //      //      Member findMember1 = entityManager.find(Member.class, member1.getId());
+  //      Member findMember1 = entityManager.getReference(Member.class, member1.getId());
+  //
+  //      System.out.println("ref class : " + findMember1.getClass());
+  //
+  ////      System.out.println(entityManagerFactory.getPersistenceUnitUtil().isLoaded(findMember1));
+  ////
+  ////      findMember1.getName();
+  ////
+  ////      System.out.println(entityManagerFactory.getPersistenceUnitUtil().isLoaded(findMember1));
+  //
+  //      Hibernate.initialize(findMember1);
+  //
+  //      entityTransaction.commit();
+  //    } catch (Exception exception) {
+  //      entityTransaction.rollback();
+  //      exception.printStackTrace();
+  //    } finally {
+  //      entityManager.close();
+  //    }
+  //
+  //    entityManagerFactory.close();
+  //  }
 
   public static void main(String[] args) {
     EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("study");
@@ -174,40 +229,42 @@ public class JpaStudyApplication {
 
     try {
       Team team = new Team();
-
-      team.setName("team-1");
+      team.setName("test-team-1");
 
       entityManager.persist(team);
 
-      Member member1 = new Member();
+      Team team2 = new Team();
+      team2.setName("test-team-2");
 
-      member1.setName("member-1");
+      entityManager.persist(team2);
+
+      Member member1 = new Member();
+      member1.setName("test-member-1");
       member1.setTeam(team);
 
       entityManager.persist(member1);
 
       Member member2 = new Member();
-
-      member2.setName("member-2");
+      member2.setName("test-member-2");
       member2.setTeam(team);
 
       entityManager.persist(member2);
 
+      Member member3 = new Member();
+      member3.setName("test-member-3");
+      member3.setTeam(team2);
+
+      entityManager.persist(member3);
+
       entityManager.flush();
       entityManager.clear();
 
-      //      Member findMember1 = entityManager.find(Member.class, member1.getId());
-      Member findMember1 = entityManager.getReference(Member.class, member1.getId());
-
-      System.out.println("ref class : " + findMember1.getClass());
-
-//      System.out.println(entityManagerFactory.getPersistenceUnitUtil().isLoaded(findMember1));
+//      Member findMember1 = entityManager.find(Member.class, member1.getId());
 //
-//      findMember1.getName();
-//
-//      System.out.println(entityManagerFactory.getPersistenceUnitUtil().isLoaded(findMember1));
+//      System.out.println("#### founded member name : " + findMember1.getName());
+//      System.out.println("#### founded team name : " + findMember1.getTeam().getName());
 
-      Hibernate.initialize(findMember1);
+      List<Member> findMembers = entityManager.createQuery("select m from Member m", Member.class).getResultList();
 
       entityTransaction.commit();
     } catch (Exception exception) {
