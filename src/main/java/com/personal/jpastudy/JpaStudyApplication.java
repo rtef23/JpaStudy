@@ -2,9 +2,6 @@ package com.personal.jpastudy;
 
 import com.personal.jpastudy.domain8.Address;
 import com.personal.jpastudy.domain8.Member;
-import com.personal.jpastudy.domain8.Period;
-import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -323,6 +320,35 @@ public class JpaStudyApplication {
   //    entityManagerFactory.close();
   //  }
 
+  //  public static void main(String[] args) {
+  //    EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("study");
+  //    EntityManager entityManager = entityManagerFactory.createEntityManager();
+  //    EntityTransaction entityTransaction = entityManager.getTransaction();
+  //
+  //    entityTransaction.begin();
+  //
+  //    try {
+  //      Member member = new Member();
+  //
+  //      member.setName("user-name-1");
+  //      member.setHomeAddress(new Address("city-1", "street-1", "zipcode-1"));
+  //      member.setWorkAddress(new Address("city-2", "street-2", "zipcode-2"));
+  //      member.setWorkPeriod(new Period(LocalDate.now(), LocalDate.now().plus(3,
+  // ChronoUnit.DAYS)));
+  //
+  //      entityManager.persist(member);
+  //
+  //      entityTransaction.commit();
+  //    } catch (Exception exception) {
+  //      entityTransaction.rollback();
+  //      exception.printStackTrace();
+  //    } finally {
+  //      entityManager.close();
+  //    }
+  //
+  //    entityManagerFactory.close();
+  //  }
+
   public static void main(String[] args) {
     EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("study");
     EntityManager entityManager = entityManagerFactory.createEntityManager();
@@ -331,14 +357,23 @@ public class JpaStudyApplication {
     entityTransaction.begin();
 
     try {
-      Member member = new Member();
+      Address address1 = new Address("city-1", "street-1", "zipcode-1");
 
-      member.setName("user-name-1");
-      member.setHomeAddress(new Address("city-1", "street-1", "zipcode-1"));
-      member.setWorkAddress(new Address("city-2", "street-2", "zipcode-2"));
-      member.setWorkPeriod(new Period(LocalDate.now(), LocalDate.now().plus(3, ChronoUnit.DAYS)));
+      Member member1 = new Member();
 
-      entityManager.persist(member);
+      member1.setName("member-1");
+      member1.setHomeAddress(address1);
+
+      entityManager.persist(member1);
+
+      Member member2 = new Member();
+
+      member2.setName("member-2");
+      member2.setHomeAddress(address1);
+
+      entityManager.persist(member2);
+
+      member1.setHomeAddress(new Address("newcity1", "street1", "zipcode1"));
 
       entityTransaction.commit();
     } catch (Exception exception) {
