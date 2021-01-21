@@ -35,8 +35,10 @@
 <!--    <class>com.personal.jpastudy.domain6.Member</class>-->
 <!--    <class>com.personal.jpastudy.domain6.Team</class>-->
 
-    <class>com.personal.jpastudy.domain7.Parent</class>
-    <class>com.personal.jpastudy.domain7.Child</class>
+<!--    <class>com.personal.jpastudy.domain7.Parent</class>-->
+<!--    <class>com.personal.jpastudy.domain7.Child</class>-->
+
+    <class>com.personal.jpastudy.domain8.Member</class>
 
     <properties>
       <!-- required -->

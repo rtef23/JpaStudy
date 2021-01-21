@@ -1,7 +1,10 @@
 package com.personal.jpastudy;
 
-import com.personal.jpastudy.domain7.Child;
-import com.personal.jpastudy.domain7.Parent;
+import com.personal.jpastudy.domain8.Address;
+import com.personal.jpastudy.domain8.Member;
+import com.personal.jpastudy.domain8.Period;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -277,6 +280,49 @@ public class JpaStudyApplication {
   //    entityManagerFactory.close();
   //  }
 
+  //  public static void main(String[] args) {
+  //    EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("study");
+  //    EntityManager entityManager = entityManagerFactory.createEntityManager();
+  //    EntityTransaction entityTransaction = entityManager.getTransaction();
+  //
+  //    entityTransaction.begin();
+  //
+  //    try {
+  //      Child child1 = new Child();
+  //      child1.setName("child-1");
+  //
+  //      Child child2 = new Child();
+  //      child2.setName("child-2");
+  //
+  //      Parent parent = new Parent();
+  //      parent.setName("parent-1");
+  //
+  //      parent.addChild(child1);
+  //      parent.addChild(child2);
+  //
+  ////      entityManager.persist(child1);
+  ////      entityManager.persist(child2);
+  //      entityManager.persist(parent);
+  //
+  //      entityManager.flush();
+  //      entityManager.clear();
+  //
+  //      Parent findParent1 = entityManager.find(Parent.class, parent.getId());
+  ////      findParent1.getChildren().remove(0);
+  //
+  //      entityManager.remove(findParent1);
+  //
+  //      entityTransaction.commit();
+  //    } catch (Exception exception) {
+  //      entityTransaction.rollback();
+  //      exception.printStackTrace();
+  //    } finally {
+  //      entityManager.close();
+  //    }
+  //
+  //    entityManagerFactory.close();
+  //  }
+
   public static void main(String[] args) {
     EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("study");
     EntityManager entityManager = entityManagerFactory.createEntityManager();
@@ -285,29 +331,14 @@ public class JpaStudyApplication {
     entityTransaction.begin();
 
     try {
-      Child child1 = new Child();
-      child1.setName("child-1");
+      Member member = new Member();
 
-      Child child2 = new Child();
-      child2.setName("child-2");
+      member.setName("user-name-1");
+      member.setHomeAddress(new Address("city-1", "street-1", "zipcode-1"));
+      member.setWorkAddress(new Address("city-2", "street-2", "zipcode-2"));
+      member.setWorkPeriod(new Period(LocalDate.now(), LocalDate.now().plus(3, ChronoUnit.DAYS)));
 
-      Parent parent = new Parent();
-      parent.setName("parent-1");
-
-      parent.addChild(child1);
-      parent.addChild(child2);
-
-//      entityManager.persist(child1);
-//      entityManager.persist(child2);
-      entityManager.persist(parent);
-
-      entityManager.flush();
-      entityManager.clear();
-
-      Parent findParent1 = entityManager.find(Parent.class, parent.getId());
-//      findParent1.getChildren().remove(0);
-
-      entityManager.remove(findParent1);
+      entityManager.persist(member);
 
       entityTransaction.commit();
     } catch (Exception exception) {
