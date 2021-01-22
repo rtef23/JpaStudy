@@ -1,7 +1,11 @@
 package com.personal.jpastudy;
 
-import com.personal.jpastudy.domain8.Address;
-import com.personal.jpastudy.domain8.Member;
+import com.personal.jpastudy.domain9.Address;
+import com.personal.jpastudy.domain9.AddressEntity;
+import com.personal.jpastudy.domain9.Member;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -349,6 +353,43 @@ public class JpaStudyApplication {
   //    entityManagerFactory.close();
   //  }
 
+  //  public static void main(String[] args) {
+  //    EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("study");
+  //    EntityManager entityManager = entityManagerFactory.createEntityManager();
+  //    EntityTransaction entityTransaction = entityManager.getTransaction();
+  //
+  //    entityTransaction.begin();
+  //
+  //    try {
+  //      Address address1 = new Address("city-1", "street-1", "zipcode-1");
+  //
+  //      Member member1 = new Member();
+  //
+  //      member1.setName("member-1");
+  //      member1.setHomeAddress(address1);
+  //
+  //      entityManager.persist(member1);
+  //
+  //      Member member2 = new Member();
+  //
+  //      member2.setName("member-2");
+  //      member2.setHomeAddress(address1);
+  //
+  //      entityManager.persist(member2);
+  //
+  //      member1.setHomeAddress(new Address("newcity1", "street1", "zipcode1"));
+  //
+  //      entityTransaction.commit();
+  //    } catch (Exception exception) {
+  //      entityTransaction.rollback();
+  //      exception.printStackTrace();
+  //    } finally {
+  //      entityManager.close();
+  //    }
+  //
+  //    entityManagerFactory.close();
+  //  }
+
   public static void main(String[] args) {
     EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("study");
     EntityManager entityManager = entityManagerFactory.createEntityManager();
@@ -357,23 +398,34 @@ public class JpaStudyApplication {
     entityTransaction.begin();
 
     try {
-      Address address1 = new Address("city-1", "street-1", "zipcode-1");
+      Address sampleAddress = new Address("city1", "street1", "zipcode1");
+      Member member = new Member();
 
-      Member member1 = new Member();
+      Set<String> favoriteFoods = new HashSet<>();
+      favoriteFoods.add("food-1");
+      favoriteFoods.add("food-2");
 
-      member1.setName("member-1");
-      member1.setHomeAddress(address1);
+      member.setName("name-1");
+      member.setFavoriteFoods(favoriteFoods);
+      //      member.setAddressHistory(
+      //          Arrays.asList(
+      //              sampleAddress,
+      //              new Address("city2", "street2", "zipcode2"),
+      //              new Address("city3", "street3", "zipcode3")));
 
-      entityManager.persist(member1);
+      member.setAddressHistory(
+          Arrays.asList(
+              new AddressEntity("city1", "street1", "zipcode1"),
+              new AddressEntity("city2", "street2", "zipcode2"),
+              new AddressEntity("city3", "street3", "zipcode3")));
 
-      Member member2 = new Member();
+      entityManager.persist(member);
 
-      member2.setName("member-2");
-      member2.setHomeAddress(address1);
+      entityManager.flush();
+      entityManager.clear();
 
-      entityManager.persist(member2);
-
-      member1.setHomeAddress(new Address("newcity1", "street1", "zipcode1"));
+      System.out.println("####");
+      Member findMember = entityManager.find(Member.class, member.getId());
 
       entityTransaction.commit();
     } catch (Exception exception) {
