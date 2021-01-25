@@ -1,15 +1,14 @@
 package com.personal.jpastudy;
 
-import com.personal.jpastudy.domain9.Address;
-import com.personal.jpastudy.domain9.AddressEntity;
 import com.personal.jpastudy.domain9.Member;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 public class JpaStudyApplication {
 
@@ -390,6 +389,54 @@ public class JpaStudyApplication {
   //    entityManagerFactory.close();
   //  }
 
+  //  public static void main(String[] args) {
+  //    EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("study");
+  //    EntityManager entityManager = entityManagerFactory.createEntityManager();
+  //    EntityTransaction entityTransaction = entityManager.getTransaction();
+  //
+  //    entityTransaction.begin();
+  //
+  //    try {
+  //      Address sampleAddress = new Address("city1", "street1", "zipcode1");
+  //      Member member = new Member();
+  //
+  //      Set<String> favoriteFoods = new HashSet<>();
+  //      favoriteFoods.add("food-1");
+  //      favoriteFoods.add("food-2");
+  //
+  //      member.setName("name-1");
+  //      member.setFavoriteFoods(favoriteFoods);
+  //      //      member.setAddressHistory(
+  //      //          Arrays.asList(
+  //      //              sampleAddress,
+  //      //              new Address("city2", "street2", "zipcode2"),
+  //      //              new Address("city3", "street3", "zipcode3")));
+  //
+  //      member.setAddressHistory(
+  //          Arrays.asList(
+  //              new AddressEntity("city1", "street1", "zipcode1"),
+  //              new AddressEntity("city2", "street2", "zipcode2"),
+  //              new AddressEntity("city3", "street3", "zipcode3")));
+  //
+  //      entityManager.persist(member);
+  //
+  //      entityManager.flush();
+  //      entityManager.clear();
+  //
+  //      System.out.println("####");
+  //      Member findMember = entityManager.find(Member.class, member.getId());
+  //
+  //      entityTransaction.commit();
+  //    } catch (Exception exception) {
+  //      entityTransaction.rollback();
+  //      exception.printStackTrace();
+  //    } finally {
+  //      entityManager.close();
+  //    }
+  //
+  //    entityManagerFactory.close();
+  //  }
+
   public static void main(String[] args) {
     EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("study");
     EntityManager entityManager = entityManagerFactory.createEntityManager();
@@ -398,34 +445,36 @@ public class JpaStudyApplication {
     entityTransaction.begin();
 
     try {
-      Address sampleAddress = new Address("city1", "street1", "zipcode1");
-      Member member = new Member();
+//      List<Member> members =
+//          entityManager
+//              .createQuery("select m from Member m where m.name like '%test%'", Member.class)
+//              .getResultList();
 
-      Set<String> favoriteFoods = new HashSet<>();
-      favoriteFoods.add("food-1");
-      favoriteFoods.add("food-2");
+      CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+      CriteriaQuery<Member> query = criteriaBuilder.createQuery(Member.class);
 
-      member.setName("name-1");
-      member.setFavoriteFoods(favoriteFoods);
-      //      member.setAddressHistory(
-      //          Arrays.asList(
-      //              sampleAddress,
-      //              new Address("city2", "street2", "zipcode2"),
-      //              new Address("city3", "street3", "zipcode3")));
+      //루트 클래스 (조회를 시작할 클래스)
+      Root<Member> member = query.from(Member.class);
 
-      member.setAddressHistory(
-          Arrays.asList(
-              new AddressEntity("city1", "street1", "zipcode1"),
-              new AddressEntity("city2", "street2", "zipcode2"),
-              new AddressEntity("city3", "street3", "zipcode3")));
+      //쿼리 생성
+      CriteriaQuery<Member> selectQuery =
+          query.select(member).where(criteriaBuilder.like(member.get("name"), "test"));
 
-      entityManager.persist(member);
+      List<Member> findMembers = entityManager.createQuery(selectQuery).getResultList();
 
-      entityManager.flush();
-      entityManager.clear();
+//      //[JPQL] select m from Member m where m.age > 18 order by name DESC
+//      JPAFactoryQuery query = new JPAQueryFactory(entityManager);
+//      QMember member = QMember.member;
+//
+//      List<Member> findMembers = query
+//          .selectFrom(member)
+//          .where(m.age.gt(18))
+//          .orderBy(m.name.desc)
+//          .fetch();
 
-      System.out.println("####");
-      Member findMember = entityManager.find(Member.class, member.getId());
+      String sql = "select member_id, name from Member where name like '%test%'";
+
+      List<Member> findMembers1 = entityManager.createNativeQuery(sql, Member.class).getResultList();
 
       entityTransaction.commit();
     } catch (Exception exception) {
