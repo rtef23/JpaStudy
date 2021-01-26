@@ -1,14 +1,10 @@
 package com.personal.jpastudy;
 
 import com.personal.jpastudy.domain9.Member;
-import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 
 public class JpaStudyApplication {
 
@@ -437,6 +433,57 @@ public class JpaStudyApplication {
   //    entityManagerFactory.close();
   //  }
 
+  //  public static void main(String[] args) {
+  //    EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("study");
+  //    EntityManager entityManager = entityManagerFactory.createEntityManager();
+  //    EntityTransaction entityTransaction = entityManager.getTransaction();
+  //
+  //    entityTransaction.begin();
+  //
+  //    try {
+  ////      List<Member> members =
+  ////          entityManager
+  ////              .createQuery("select m from Member m where m.name like '%test%'", Member.class)
+  ////              .getResultList();
+  //
+  //      CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+  //      CriteriaQuery<Member> query = criteriaBuilder.createQuery(Member.class);
+  //
+  //      //루트 클래스 (조회를 시작할 클래스)
+  //      Root<Member> member = query.from(Member.class);
+  //
+  //      //쿼리 생성
+  //      CriteriaQuery<Member> selectQuery =
+  //          query.select(member).where(criteriaBuilder.like(member.get("name"), "test"));
+  //
+  //      List<Member> findMembers = entityManager.createQuery(selectQuery).getResultList();
+  //
+  ////      //[JPQL] select m from Member m where m.age > 18 order by name DESC
+  ////      JPAFactoryQuery query = new JPAQueryFactory(entityManager);
+  ////      QMember member = QMember.member;
+  ////
+  ////      List<Member> findMembers = query
+  ////          .selectFrom(member)
+  ////          .where(m.age.gt(18))
+  ////          .orderBy(m.name.desc)
+  ////          .fetch();
+  //
+  //      String sql = "select member_id, name from Member where name like '%test%'";
+  //
+  //      List<Member> findMembers1 = entityManager.createNativeQuery(sql,
+  // Member.class).getResultList();
+  //
+  //      entityTransaction.commit();
+  //    } catch (Exception exception) {
+  //      entityTransaction.rollback();
+  //      exception.printStackTrace();
+  //    } finally {
+  //      entityManager.close();
+  //    }
+  //
+  //    entityManagerFactory.close();
+  //  }
+
   public static void main(String[] args) {
     EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("study");
     EntityManager entityManager = entityManagerFactory.createEntityManager();
@@ -445,36 +492,21 @@ public class JpaStudyApplication {
     entityTransaction.begin();
 
     try {
-//      List<Member> members =
-//          entityManager
-//              .createQuery("select m from Member m where m.name like '%test%'", Member.class)
-//              .getResultList();
 
-      CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-      CriteriaQuery<Member> query = criteriaBuilder.createQuery(Member.class);
+      //      entityManager.createQuery("select m from Member m", Member.class);
+      //      entityManager.createQuery("select m.username from Member m", String.class);
 
-      //루트 클래스 (조회를 시작할 클래스)
-      Root<Member> member = query.from(Member.class);
+      Member findMember =
+          entityManager
+              .createQuery("select m from Member m where m.username=:username", Member.class)
+              .setParameter("username", "test-user-name")
+              .getSingleResult();
 
-      //쿼리 생성
-      CriteriaQuery<Member> selectQuery =
-          query.select(member).where(criteriaBuilder.like(member.get("name"), "test"));
-
-      List<Member> findMembers = entityManager.createQuery(selectQuery).getResultList();
-
-//      //[JPQL] select m from Member m where m.age > 18 order by name DESC
-//      JPAFactoryQuery query = new JPAQueryFactory(entityManager);
-//      QMember member = QMember.member;
-//
-//      List<Member> findMembers = query
-//          .selectFrom(member)
-//          .where(m.age.gt(18))
-//          .orderBy(m.name.desc)
-//          .fetch();
-
-      String sql = "select member_id, name from Member where name like '%test%'";
-
-      List<Member> findMembers1 = entityManager.createNativeQuery(sql, Member.class).getResultList();
+      Member findMember1 =
+          entityManager
+              .createQuery("select m from Member m where m.username=?1", Member.class)
+              .setParameter(1, "test-user-name")
+              .getSingleResult();
 
       entityTransaction.commit();
     } catch (Exception exception) {

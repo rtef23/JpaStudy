@@ -40,8 +40,13 @@
 
 <!--    <class>com.personal.jpastudy.domain8.Member</class>-->
 
-    <class>com.personal.jpastudy.domain9.Member</class>
-    <class>com.personal.jpastudy.domain9.AddressEntity</class>
+<!--    <class>com.personal.jpastudy.domain9.Member</class>-->
+<!--    <class>com.personal.jpastudy.domain9.AddressEntity</class>-->
+
+    <class>com.personal.jpastudy.domain10.Member</class>
+    <class>com.personal.jpastudy.domain10.Team</class>
+    <class>com.personal.jpastudy.domain10.Order</class>
+    <class>com.personal.jpastudy.domain10.Product</class>
 
     <properties>
       <!-- required -->
