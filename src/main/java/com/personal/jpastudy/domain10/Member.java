@@ -23,6 +23,9 @@ public class Member {
     this.age = age;
   }
 
+  public Member() {
+  }
+
   public Long getId() {
     return id;
   }
@@ -37,5 +40,14 @@ public class Member {
 
   public Team getTeam() {
     return team;
+  }
+
+  @Override
+  public String toString() {
+    return "Member{" +
+        "id=" + id +
+        ", username='" + username + '\'' +
+        ", age=" + age +
+        '}';
   }
 }

@@ -1,6 +1,8 @@
 package com.personal.jpastudy;
 
-import com.personal.jpastudy.domain9.Member;
+import com.personal.jpastudy.domain10.Member;
+import java.util.List;
+import java.util.stream.IntStream;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -484,6 +486,84 @@ public class JpaStudyApplication {
   //    entityManagerFactory.close();
   //  }
 
+  //  public static void main(String[] args) {
+  //    EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("study");
+  //    EntityManager entityManager = entityManagerFactory.createEntityManager();
+  //    EntityTransaction entityTransaction = entityManager.getTransaction();
+  //
+  //    entityTransaction.begin();
+  //
+  //    try {
+  //
+  //      //      entityManager.createQuery("select m from Member m", Member.class);
+  //      //      entityManager.createQuery("select m.username from Member m", String.class);
+  //
+  //      Member findMember =
+  //          entityManager
+  //              .createQuery("select m from Member m where m.username=:username", Member.class)
+  //              .setParameter("username", "test-user-name")
+  //              .getSingleResult();
+  //
+  //      Member findMember1 =
+  //          entityManager
+  //              .createQuery("select m from Member m where m.username=?1", Member.class)
+  //              .setParameter(1, "test-user-name")
+  //              .getSingleResult();
+  //
+  //      entityTransaction.commit();
+  //    } catch (Exception exception) {
+  //      entityTransaction.rollback();
+  //      exception.printStackTrace();
+  //    } finally {
+  //      entityManager.close();
+  //    }
+  //
+  //    entityManagerFactory.close();
+  //  }
+
+  //  public static void main(String[] args) {
+  //    EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("study");
+  //    EntityManager entityManager = entityManagerFactory.createEntityManager();
+  //    EntityTransaction entityTransaction = entityManager.getTransaction();
+  //
+  //    entityTransaction.begin();
+  //
+  //    try {
+  //      Member member = new Member("name-1", 10);
+  //
+  //      entityManager.persist(member);
+  //
+  //      entityManager.flush();
+  //      entityManager.clear();
+  //
+  ////      List results =
+  ////          entityManager.createQuery("select m.username, m.age from Member m").getResultList();
+  //
+  ////      List<Object[]> results =
+  ////          entityManager.createQuery("select m.username, m.age from Member m").getResultList();
+  ////
+  ////      Object[] resultObjects = results.get(0);
+  ////
+  ////      System.out.println("resultObjects[0] : " + resultObjects[0]);
+  ////      System.out.println("resultObjects[1] : " + resultObjects[1]);
+  //
+  //      List<MemberDTO> results = entityManager.createQuery("select new
+  // com.personal.jpastudy.domain10.MemberDTO(m.username, m.age) from Member m",
+  // MemberDTO.class).getResultList();
+  //
+  //      System.out.println("result[0] : " + results.get(0));
+  //
+  //      entityTransaction.commit();
+  //    } catch (Exception exception) {
+  //      entityTransaction.rollback();
+  //      exception.printStackTrace();
+  //    } finally {
+  //      entityManager.close();
+  //    }
+  //
+  //    entityManagerFactory.close();
+  //  }
+
   public static void main(String[] args) {
     EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("study");
     EntityManager entityManager = entityManagerFactory.createEntityManager();
@@ -492,21 +572,25 @@ public class JpaStudyApplication {
     entityTransaction.begin();
 
     try {
+      IntStream.rangeClosed(0, 9)
+          .forEach(
+              (number) -> {
+                Member member = new Member("name-" + number, number);
 
-      //      entityManager.createQuery("select m from Member m", Member.class);
-      //      entityManager.createQuery("select m.username from Member m", String.class);
+                entityManager.persist(member);
+              });
 
-      Member findMember =
+      entityManager.flush();
+      entityManager.clear();
+
+      List<Member> members =
           entityManager
-              .createQuery("select m from Member m where m.username=:username", Member.class)
-              .setParameter("username", "test-user-name")
-              .getSingleResult();
+              .createQuery("select m from Member m order by m.age desc", Member.class)
+              .setFirstResult(0)
+              .setMaxResults(10)
+              .getResultList();
 
-      Member findMember1 =
-          entityManager
-              .createQuery("select m from Member m where m.username=?1", Member.class)
-              .setParameter(1, "test-user-name")
-              .getSingleResult();
+      System.out.println(members.toString().replace("},", "},\n"));
 
       entityTransaction.commit();
     } catch (Exception exception) {
