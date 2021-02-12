@@ -2,6 +2,7 @@ package com.personal.jpastudy;
 
 import com.personal.jpastudy.domain10.Member;
 import com.personal.jpastudy.domain10.Team;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.IntStream;
 import javax.persistence.EntityManager;
@@ -604,6 +605,59 @@ public class JpaStudyApplication {
   //    entityManagerFactory.close();
   //  }
 
+  //  public static void main(String[] args) {
+  //    EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("study");
+  //    EntityManager entityManager = entityManagerFactory.createEntityManager();
+  //    EntityTransaction entityTransaction = entityManager.getTransaction();
+  //
+  //    entityTransaction.begin();
+  //
+  //    try {
+  //      Team team = new Team("team-name");
+  //
+  //      entityManager.persist(team);
+  //
+  //      IntStream.rangeClosed(0, 9)
+  //          .forEach(
+  //              (number) -> {
+  //                Member member = new Member("name-" + number, number);
+  //
+  //                member.changeTeam(team);
+  //
+  //                entityManager.persist(member);
+  //              });
+  //
+  //      entityManager.flush();
+  //      entityManager.clear();
+  //
+  //      //      List<Member> findMembers = entityManager.createQuery("select m from Member m left
+  // join
+  //      // m.team t", Member.class).getResultList();
+  //      //
+  //      //      System.out.println(findMembers);
+  //      //      System.out.println("#### before getTeam()");
+  //      //      System.out.println(findMembers.get(0).getTeam());
+  //
+  ////      List<Member> result =
+  ////          entityManager.createQuery("select m from Member m ,Team t",
+  // Member.class).getResultList();
+  //
+  //      List<Member> result = entityManager.createQuery("select m from Member m where m.age > ALL
+  // (select length(t.name) from Team t)", Member.class).getResultList();
+  //
+  //      System.out.println(result);
+  //
+  //      entityTransaction.commit();
+  //    } catch (Exception exception) {
+  //      entityTransaction.rollback();
+  //      exception.printStackTrace();
+  //    } finally {
+  //      entityManager.close();
+  //    }
+  //
+  //    entityManagerFactory.close();
+  //  }
+
   public static void main(String[] args) {
     EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("study");
     EntityManager entityManager = entityManagerFactory.createEntityManager();
@@ -612,16 +666,18 @@ public class JpaStudyApplication {
     entityTransaction.begin();
 
     try {
-      Team team = new Team("team-name");
+      List<Team> teams =
+          Arrays.asList(new Team("team-name1"), new Team("team-name2"), new Team("team-name3"));
 
-      entityManager.persist(team);
+      teams.forEach(entityManager::persist);
 
       IntStream.rangeClosed(0, 9)
           .forEach(
               (number) -> {
                 Member member = new Member("name-" + number, number);
+                Team selectedTeam = teams.get((int) (Math.random() * teams.size()));
 
-                member.changeTeam(team);
+                member.changeTeam(selectedTeam);
 
                 entityManager.persist(member);
               });
@@ -629,19 +685,38 @@ public class JpaStudyApplication {
       entityManager.flush();
       entityManager.clear();
 
-      //      List<Member> findMembers = entityManager.createQuery("select m from Member m left join
-      // m.team t", Member.class).getResultList();
-      //
-      //      System.out.println(findMembers);
-      //      System.out.println("#### before getTeam()");
-      //      System.out.println(findMembers.get(0).getTeam());
+      //      List<Member> results = entityManager.createQuery("select m from Member m",
+      // Member.class).getResultList();
+      //      List<Member> results = entityManager.createQuery("select m from Member m join fetch
+      // m.team", Member.class).getResultList();
+//      List<Team> results =
+//          entityManager
+//              .createQuery("select t from Team t join fetch t.members", Team.class)
+//              .getResultList();
+      List<Team> results =
+          entityManager
+              .createQuery("select distinct t from Team t join fetch t.members", Team.class)
+              .getResultList();
 
-//      List<Member> result =
-//          entityManager.createQuery("select m from Member m ,Team t", Member.class).getResultList();
 
-      List<Member> result = entityManager.createQuery("select m from Member m where m.age > ALL (select length(t.name) from Team t)", Member.class).getResultList();
+      //      for(Member member : results){
+      //        System.out.println("member name : " + member.getUsername() + "\n\tteam name : " +
+      // member.getTeam().getName());
+      //      }
+      results.forEach(
+          (team) -> {
+            System.out.println("team name : " + team.getName());
 
-      System.out.println(result);
+            team.getMembers()
+                .forEach(
+                    (member) -> {
+                      System.out.println(
+                          "=> member id : "
+                              + member.getId()
+                              + "\tmember name : "
+                              + member.getUsername());
+                    });
+          });
 
       entityTransaction.commit();
     } catch (Exception exception) {
